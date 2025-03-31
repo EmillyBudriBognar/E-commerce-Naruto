@@ -1,14 +1,14 @@
-<svg width="1488" height="840" viewBox="0 0 1488 840" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="1488" height="843" viewBox="0 0 1488 843" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="1488" height="837" transform="matrix(-1 0 0 1 1488 3)" fill="url(#pattern0_1_4)"/>
-<path d="M1488 0H4.57764e-05V840H1488V0Z" fill="url(#paint0_linear_1_4)"/>
-<path d="M0 0L-3.67176e-05 840L1488 840L1488 6.50425e-05L0 0Z" fill="url(#paint1_linear_1_4)"/>
+<path d="M1488 3H4.57764e-05V843H1488V3Z" fill="url(#paint0_linear_1_4)"/>
+<path d="M0 0L-3.67176e-05 840L1488 840L1488 6.50426e-05L0 0Z" fill="url(#paint1_linear_1_4)"/>
 <defs>
 <pattern id="pattern0_1_4" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_1_4" transform="scale(0.000520833 0.000925926)"/>
 </pattern>
-<linearGradient id="paint0_linear_1_4" x1="1488" y1="487" x2="0.000226097" y2="484.864" gradientUnits="userSpaceOnUse">
-<stop offset="0.281" stop-opacity="0.75"/>
-<stop offset="0.481" stop-color="#333333" stop-opacity="0.375"/>
+<linearGradient id="paint0_linear_1_4" x1="1488" y1="490" x2="0.000226097" y2="487.864" gradientUnits="userSpaceOnUse">
+<stop offset="0.418269" stop-opacity="0.75"/>
+<stop offset="0.596154" stop-color="#333333" stop-opacity="0.375"/>
 <stop offset="0.741" stop-color="#666666" stop-opacity="0"/>
 </linearGradient>
 <linearGradient id="paint1_linear_1_4" x1="862.686" y1="3.81569e-05" x2="862.302" y2="840.001" gradientUnits="userSpaceOnUse">
