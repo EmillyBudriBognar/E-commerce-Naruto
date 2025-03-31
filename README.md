@@ -14,7 +14,6 @@ Este projeto faz parte da Atividade 1 da disciplina de Desenvolvimento Web no cu
 Bruno Zolotareff
 
 ### 👥 Integrantes do Grupo
-(Os nomes devem ser organizados em ordem alfabética)
 - Emilly Budri Bognar  
 - Gabriel de Moura  
 - Johnny da Silva Franco de Lima  
