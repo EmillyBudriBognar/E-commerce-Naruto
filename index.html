@@ -12,13 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link href="style.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16"  href="assets/icons/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
-                <div class="navbar-brand">Lojinha do Naruto</div>
+                <div class="navbar-brand">
+                    <img src="assets/img/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                    Lojinha do Naruto
+                </div>
                 
                 <nav class="d-none d-md-flex align-items-center">
                     <a class="nav-link active" href="index.html">Início</a>
@@ -57,13 +64,269 @@
             </div>
         </section>
 
-        <!-- Produtos Section -->
-        <section id="products-section" class="py-5">
+        <!-- Produtos Section 1 -->
+        <section id="products-section" class="products-section">
             <div class="container">
-                <h2 class="text-center mb-5">Nossos Produtos Exclusivos</h2>
+                <h2 class="section-title">Coleções Exclusivas</h2>
                 <div class="row">
-                    <!-- Produtos serão inseridos aqui -->
-                     
+                    <!-- Card 1 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura1.jpg" alt="Jogo de Cards Naruto" class="product-img">
+                                <span class="product-badge">Novidade</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Jogo de Cards Naruto</h3>
+                                <p class="product-description">Coleção exclusiva de cards raros do universo Naruto, incluindo personagens lendários e cenas icônicas. Perfeito para duelos e colecionadores.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="text-muted">(4.5)</span>
+                                </div>
+                                <div class="product-price">R$ 219,90 <span class="product-old-price">R$ 299,90</span></div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura2.jpg" alt="Copo Térmico Uzumaki" class="product-img">
+                                <span class="product-badge">Mais Vendido</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Copo Térmico Uzumaki</h3>
+                                <p class="product-description">Copo térmico com design do Naruto Uzumaki, capacidade de 400ml, mantém bebidas quentes ou frias por horas. Ideal para fãs de plantão.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="text-muted">(5.0)</span>
+                                </div>
+                                <div class="product-price">R$ 79,90</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura3.jpg" alt="Figure Action Naruto" class="product-img">
+                                <span class="product-badge">Oferta</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Figure Action Naruto</h3>
+                                <p class="product-description">Figura articulada do Naruto, 20cm de altura, com acessórios intercambiáveis e base especial.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="text-muted">(4.0)</span>
+                                </div>
+                                <div class="product-price">R$ 129,90 <span class="product-old-price">R$ 159,90</span></div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos Section 2 (Destaque) -->
+        <section class="highlight-section">
+            <div class="container">
+                <h2 class="section-title">Promoções Imperdíveis</h2>
+                <div class="row">
+                    <!-- Card 4 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura4.jpg" alt="Funko Pop Naruto" class="product-img">
+                                <span class="product-badge">-30%</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Funko Pop Minato</h3>
+                                <p class="product-description">Funko Pop edição limitada do Quarto Hokage, Minato Namikaze, em sua capa característica. Colecionável indispensável.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="text-muted">(5.0)</span>
+                                </div>
+                                <div class="product-price">R$ 129,90 <span class="product-old-price">R$ 1.429,90</span></div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 5 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura5.jpg" alt="Figure Action Sakura" class="product-img">
+                                <span class="product-badge">Limitado</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Figure Action Sakura</h3>
+                                <p class="product-description">Figure Action da Sakura Haruno em traje médico, com detalhes realistas e acessórios de cura. Altura: 30cm.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="text-muted">(4.7)</span>
+                                </div>
+                                <div class="product-price">R$ 79,90 <span class="product-old-price">R$ 99,90</span></div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 6 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura6.jpg" alt="Manta Akatsuki" class="product-img">
+                                <span class="product-badge">Novidade</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Cobertor Akatsuki</h3>
+                                <p class="product-description">Cobertor oficial do grupo Akatsuki em tecido premium, tamanho 200x200cm, ideal para se aquecer no inverno.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="text-muted">(4.0)</span>
+                                </div>
+                                <div class="product-price">R$ 179,90</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos Section 3 -->
+        <section class="products-section">
+            <div class="container">
+                <h2 class="section-title">Lançamentos</h2>
+                <div class="row">
+                    <!-- Card 7 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura7.jpg" alt="Camiseta Naruto" class="product-img">
+                                <span class="product-badge">Exclusivo</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Camiseta Naruto</h3>
+                                <p class="product-description">Camiseta 100% algodão, disponível em tamanhos P a GG. Design exclusivo e durável.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="text-muted">(5.0)</span>
+                                </div>
+                                <div class="product-price">R$ 79,90</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 8 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura8.jpg" alt="Vestido do Naruto para Cosplay" class="product-img">
+                                <span class="product-badge">Edição Limitada</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Vestido do Naruto para Cosplay</h3>
+                                <p class="product-description">Vestido completo para cosplay do Naruto, com detalhes em tecido resistente.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="text-muted">(4.8)</span>
+                                </div>
+                                <div class="product-price">R$ 299,90</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 9 -->
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-img-container">
+                                <img src="assets/img/figura9.jpg" alt="Capa Akatsuki" class="product-img">
+                                <span class="product-badge">Mais Vendido</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-title">Capa Akatsuki</h3>
+                                <p class="product-description">Réplica fiel da capa Akatsuki em tecido impermeável, com nuvens vermelhas bordadas. Tamanho único.</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="text-muted">(5.0)</span>
+                                </div>
+                                <div class="product-price">R$ 229,90</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-details">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
