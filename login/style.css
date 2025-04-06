@@ -116,24 +116,29 @@ legend{  /*Borda de Login*/
     background-image: linear-gradient(to right, #ff8008, #ffc837);
 }
 
-/* Responsividade adicional para telas menores */
+/*Responsividade adicional para telas menores*/
 @media (max-width: 768px) {
     body {
       justify-content: center;
       padding: 20px;
     }
-  
     .box {
       width: 100%;
       max-width: 360px;
     }
-  
     fieldset {
       padding: 15px;
     }
-  
     legend {
       font-size: 16px;
       padding: 8px;
     }
   }
+
+/*Correção do preenchimento automático do Google*/
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(13, 22, 44, 0.9) inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
