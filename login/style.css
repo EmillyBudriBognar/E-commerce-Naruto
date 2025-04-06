@@ -9,7 +9,7 @@ body{
     align-items: center;
     padding-right: 90px;
 
-    background: url('assets/img/Fundo2.png');
+    background: url('../assets/img/Fundo2.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
