@@ -1,79 +1,175 @@
-.container{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --primary-color: #FF8C00;
+    --secondary-color: #333;
+    --light-bg: #f9f2e8;
+    --dark-bg: #222;
+    --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
 }
 
 body {
-  font-family:Arial, Helvetica, sans-serif;
-  color:black;
-  font-size: 20px;
-  display:flex;
-  height: 97vh;
-  justify-content: center;
-  align-items: center;
-  background-color:rgb(9,60,125);
-}
-
-h1{
-    font-size: 30px;
-}
-
-form{
-    border-radius: 20px;
-    background-color:rgb(255, 160, 35);
-    padding: 30px 40px 30px;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--secondary-color);
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap:5px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.Cadastro-Email-Senha1{
+.login-card {
+    max-width: 450px;
+    width: 100%;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--dark-bg);
+    font-weight: 700;
+    position: relative;
+}
+
+.login-title:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 15px auto;
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.form-control {
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-bottom: 1.25rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(255, 140, 0, 0.25);
+}
+
+.btn-login {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+    width: 100%;
+    border-radius: 6px;
+    color: white;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
+}
+
+.btn-login:hover {
+    background-color: #e67e00;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: var(--dark-bg);
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-back:hover {
+    color: var(--primary-color);
+    transform: translateX(-3px);
+}
+
+.divider {
     display: flex;
-    flex-direction: column;
-    gap:5px
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #95a5a6;
 }
 
-.Cadastro-Email-Senha2{
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider::before {
+    margin-right: 1rem;
+}
+
+.divider::after {
+    margin-left: 1rem;
+}
+
+.social-login {
     display: flex;
-    flex-direction: column;
-    gap:3px
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-input{
-   padding: 4px;
-   border-radius: 7px;
-   border: none;
-   background-color: rgb(130, 208, 233);
-}
-
-
-.manter-login{
+.social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
     display: flex;
-    font-size: 17px;
-    color:black;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    transition: var(--transition);
 }
 
-.Senha{
-    display: flex;
-    align-self: center;
-    font-size: 15px;
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
-a{
-    font-size: 19px;
-    color: rgb(0, 51, 51);
+.facebook {
+    background-color: #3b5998;
 }
 
-
-.Botao{
-    display: flex;
-    flex-direction: column;
-    align-self: center;
+.google {
+    background-color: #db4437;
 }
-button{
-    font-size: 16px;
-    padding:10px;
-    width: 130px;
-    border-radius: 20px;
+
+.apple {
+    background-color: #000000;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.login-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
 }
