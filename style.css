@@ -29,11 +29,6 @@ header {
     color: var(--primary-color) !important;
 }
 
-.logo {
-    height: 30px;
-    margin-right: 10px;
-}
-
 .nav-link {
     color: white;
     font-weight: 500;
