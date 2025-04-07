@@ -16,6 +16,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    margin: 0;
 }
 
 .login-card {
@@ -172,4 +173,23 @@ body {
 
 .login-footer a:hover {
     text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .login-title {
+        font-size: 1.5rem;
+    }
+    
+    .login-logo {
+        font-size: 1.5rem;
+    }
 }
