@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Lojinha do Naruto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="navbar-brand">
+                    <img src="../assets/img/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                    Lojinha do Naruto
+                </div>
+                
+                <nav class="d-none d-md-flex align-items-center">
+                    <a class="nav-link" href="../index.html">Início</a>
+                    <a class="nav-link" href="../index.html#products-section">Produtos</a>
+                    <a class="nav-link" href="../sobre/index.html">Sobre</a>
+                </nav>
+                
+                <div class="header-icons">
+                    <a href="../login/index.html"><i class="fas fa-user"></i></a>
+                    <a href="../carrinho/index.html"><i class="fas fa-shopping-cart"></i></a>
+                    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="collapse d-md-none" id="mobileMenu">
+                <div class="d-flex flex-column py-3">
+                    <a class="nav-link active" href="../index.html">Início</a>
+                    <a class="nav-link" href="../index.html#products-section">Produtos</a>
+                    <a class="nav-link" href="../sobre/index.html">Sobre</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <h1 class="mb-4">Seu Carrinho</h1>
+        
+        <div id="carrinho-vazio" class="text-center py-5">
+            <i class="fas fa-shopping-cart fa-4x mb-3 text-muted"></i>
+            <h3 class="mb-3">Seu carrinho está vazio</h3>
+            <a href="../index.html" class="btn btn-primary">Voltar às Compras</a>
+        </div>
+        
+        <div id="carrinho-itens" class="d-none">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 50%">Produto</th>
+                            <th>Preço Unitário</th>
+                            <th>Quantidade</th>
+                            <th>Subtotal</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itens-carrinho">
+                        <!-- Itens serão inseridos aqui via JavaScript -->
+                    </tbody>
+                    <tfoot class="table-group-divider">
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">Total:</td>
+                            <td id="total-carrinho" class="fw-bold">R$ 0,00</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+                <a href="../index.html" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Continuar Comprando
+                </a>
+                <button id="finalizar-compra" class="btn btn-success">
+                    <i class="fas fa-check me-2"></i>Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Função para carregar usuários no localStorage quando a página é carregada
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se já existem usuários no localStorage
+            if (!localStorage.getItem('usuarios')) {
+                // Cria um array com 3 usuários de exemplo
+                const usuarios = [
+                    { nome: "Naruto Uzumaki", email: "naruto@konoha.com", senha: "123456" },
+                    { nome: "Sasuke Uchiha", email: "sasuke@konoha.com", senha: "123456" },
+                    { nome: "Sakura Haruno", email: "sakura@konoha.com", senha: "123456" }
+                ];
+                
+                // Salva os usuários no localStorage
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            }
+            
+            // Verifica se há um usuário logado na sessão
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            if (usuarioLogado) {
+                // Se estiver logado, mostra mensagem de boas-vindas
+                const usuario = JSON.parse(usuarioLogado);
+                document.getElementById('welcome-message').textContent = `Bem-vindo, ${usuario.nome}!`;
+                document.getElementById('welcome-message').classList.remove('d-none');
+            }
+            
+            // Configura os botões de compra
+            configurarBotoesComprar();
+            // Atualiza o contador do carrinho
+            atualizarContadorCarrinho();
+        });
+
+        // Função para adicionar produto ao carrinho
+        function adicionarAoCarrinho(produtoId, produtoNome, produtoPreco) {
+            // Verifica se o usuário está logado
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            if (!usuarioLogado) {
+                alert('Por favor, faça login para adicionar produtos ao carrinho.');
+                window.location.href = 'login/index.html';
+                return;
+            }
+            
+            const usuario = JSON.parse(usuarioLogado);
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Verifica se o produto já está no carrinho
+            const produtoExistente = carrinho.find(item => 
+                item.id === produtoId && 
+                item.usuario === usuario.nome
+            );
+            
+            if (produtoExistente) {
+                produtoExistente.quantidade = (produtoExistente.quantidade || 1) + 1;
+            } else {
+                carrinho.push({
+                    id: produtoId,
+                    nome: produtoNome,
+                    preco: parseFloat(produtoPreco),
+                    usuario: usuario.nome,
+                    data: new Date().toISOString(),
+                    quantidade: 1
+                });
+            }
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            
+            // Mostra mensagem de sucesso
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                ${produtoNome} foi adicionado ao carrinho!
+            `;
+            document.body.appendChild(toast);
+            
+            // Remove a mensagem após 3 segundos
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+            
+            // Atualiza o ícone do carrinho
+            atualizarContadorCarrinho();
+        }
+
+        // Função para atualizar o contador do carrinho
+        function atualizarContadorCarrinho() {
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            if (!usuarioLogado) return;
+            
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const usuario = JSON.parse(usuarioLogado);
+            const itensUsuario = carrinho.filter(item => item.usuario === usuario.nome);
+            const totalItens = itensUsuario.reduce((total, item) => total + (item.quantidade || 1), 0);
+            
+            // Remove o contador existente, se houver
+            const contadorExistente = document.querySelector('.cart-counter');
+            if (contadorExistente) {
+                contadorExistente.remove();
+            }
+            
+            if (totalItens > 0) {
+                const contador = document.createElement('span');
+                contador.className = 'cart-counter';
+                contador.textContent = totalItens;
+                
+                const iconeCarrinho = document.querySelector('.fa-shopping-cart').parentNode;
+                iconeCarrinho.appendChild(contador);
+            }
+        }
+
+        // Configura os botões de compra
+        function configurarBotoesComprar() {
+            document.querySelectorAll('.btn-buy').forEach(botao => {
+                botao.addEventListener('click', function() {
+                    const produtoId = this.getAttribute('data-produto-id');
+                    const produtoNome = this.getAttribute('data-produto-nome');
+                    const produtoPreco = this.getAttribute('data-produto-preco');
+                    
+                    adicionarAoCarrinho(produtoId, produtoNome, produtoPreco);
+                });
+            });
+}
+    </script>
+    <script>
+        // js/carrinho.js
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se há usuário logado
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            
+            if (!usuarioLogado) {
+                alert('Por favor, faça login para acessar seu carrinho.');
+                window.location.href = '../login/index.html';
+                return;
+            }
+
+            const usuario = JSON.parse(usuarioLogado);
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Filtra apenas os itens do usuário logado
+            const itensUsuario = carrinho.filter(item => item.usuario === usuario.nome);
+            
+            // Elementos da página
+            const carrinhoVazio = document.getElementById('carrinho-vazio');
+            const carrinhoItens = document.getElementById('carrinho-itens');
+            const tbody = document.getElementById('itens-carrinho');
+            const totalCarrinho = document.getElementById('total-carrinho');
+
+            if (itensUsuario.length === 0) {
+                carrinhoVazio.classList.remove('d-none');
+                carrinhoItens.classList.add('d-none');
+            } else {
+                carrinhoVazio.classList.add('d-none');
+                carrinhoItens.classList.remove('d-none');
+                
+                // Limpa a tabela
+                tbody.innerHTML = '';
+                
+                let total = 0;
+                
+                // Adiciona cada item ao carrinho
+                itensUsuario.forEach((item, index) => {
+                    const quantidade = item.quantidade || 1;
+                    const subtotal = item.preco * quantidade;
+                    total += subtotal;
+                    
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="../assets/img/figura${item.id}.jpg" alt="${item.nome}" class="product-image me-3 rounded">
+                                <span>${item.nome}</span>
+                            </div>
+                        </td>
+                        <td>R$ ${item.preco.toFixed(2).replace('.', ',')}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-sm btn-outline-secondary diminuir-quantidade" data-index="${index}">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" value="${quantidade}" min="1" 
+                                    class="form-control quantidade-input mx-2" data-index="${index}">
+                                <button class="btn btn-sm btn-outline-secondary aumentar-quantidade" data-index="${index}">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>R$ ${subtotal.toFixed(2).replace('.', ',')}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger remover-item" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                
+                // Atualiza o total
+                totalCarrinho.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+                
+                // Adiciona eventos aos botões
+                adicionarEventos(itensUsuario);
+            }
+
+            // Evento para finalizar compra
+            document.getElementById('finalizar-compra').addEventListener('click', function() {
+                finalizarCompra(usuario.nome);
+            });
+        });
+
+        function adicionarEventos(itensUsuario) {
+            // Remover item
+            document.querySelectorAll('.remover-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    removerItemDoCarrinho(index, itensUsuario);
+                });
+            });
+            
+            // Aumentar quantidade
+            document.querySelectorAll('.aumentar-quantidade').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    alterarQuantidade(index, itensUsuario, 1);
+                });
+            });
+            
+            // Diminuir quantidade
+            document.querySelectorAll('.diminuir-quantidade').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    alterarQuantidade(index, itensUsuario, -1);
+                });
+            });
+            
+            // Alteração manual da quantidade
+            document.querySelectorAll('.quantidade-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const index = this.getAttribute('data-index');
+                    const novaQuantidade = parseInt(this.value);
+                    
+                    if (novaQuantidade > 0) {
+                        atualizarQuantidadeNoCarrinho(index, novaQuantidade, itensUsuario);
+                    } else {
+                        this.value = itensUsuario[index].quantidade || 1;
+                    }
+                });
+            });
+        }
+
+        function removerItemDoCarrinho(index, itensUsuario) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Encontra o item específico no carrinho completo
+            const itemParaRemover = itensUsuario[index];
+            carrinho = carrinho.filter(item => 
+                !(item.id === itemParaRemover.id && 
+                item.usuario === itemParaRemover.usuario &&
+                item.data === itemParaRemover.data)
+            );
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            location.reload();
+        }
+
+        function alterarQuantidade(index, itensUsuario, alteracao) {
+            const input = document.querySelector(`.quantidade-input[data-index="${index}"]`);
+            let novaQuantidade = parseInt(input.value) + alteracao;
+            
+            if (novaQuantidade < 1) novaQuantidade = 1;
+            
+            input.value = novaQuantidade;
+            atualizarQuantidadeNoCarrinho(index, novaQuantidade, itensUsuario);
+        }
+
+        function atualizarQuantidadeNoCarrinho(index, novaQuantidade, itensUsuario) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const itemParaAtualizar = itensUsuario[index];
+            
+            // Atualiza a quantidade no carrinho completo
+            carrinho = carrinho.map(item => {
+                if (item.id === itemParaAtualizar.id && 
+                    item.usuario === itemParaAtualizar.usuario &&
+                    item.data === itemParaAtualizar.data) {
+                    return {...item, quantidade: novaQuantidade};
+                }
+                return item;
+            });
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            location.reload();
+        }
+
+        function finalizarCompra(usuarioNome) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Remove apenas os itens do usuário atual
+            carrinho = carrinho.filter(item => item.usuario !== usuarioNome);
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            alert('Compra finalizada com sucesso! Obrigado por comprar na Lojinha do Naruto!');
+            location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>

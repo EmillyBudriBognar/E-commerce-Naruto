@@ -4,47 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Login</title>
-    <link rel="icon" type="image/png" sizes="16x16"  href="../assets/icons/favicon-16x16.png">
+    <title>Login - Lojinha do Naruto</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16x16.png">
 </head>
 <body>
-    <!-- Seta de voltar sem JavaScript - link para a página inicial -->
     <a href="../index.html" class="back-arrow">
         ← Voltar
     </a>
 
     <div class="box">
-        <form action="">
+        <form id="loginForm">
             <fieldset>
                 <legend>Faça seu Login</legend>
 
                 <div class="inputBox">
-                    <input type="text" name="nome" id="nome" class="inputUser" required>
-                    <label for="nome" class="labelInput">Nome completo</label>
-                </div>
-
-                <div class="inputBox">
-                    <input type="text" name="email" id="email" class="inputUser" required>
+                    <input type="email" name="email" id="email" class="inputUser" required>
                     <label for="email" class="labelInput">Email</label>
+                    <div id="email-error" class="error-message">Email inválido</div>
                 </div>
 
                 <div class="inputBox">
                     <input type="password" name="password" id="password" class="inputUser" required>
                     <label for="password" class="labelInput">Senha</label>
+                    <div id="password-error" class="error-message">Senha incorreta</div>
                 </div>
                 
                 <label class="manter-login">
                     <input type="checkbox" class="checkbox" id="manterLogin">
-                    <span class="text">Manter Login</span>
+                    <span class="text">Manter conectado</span>
                 </label>
                 
                 <div class="senha">
-                    <a href="index.html">Esqueci senha</a>
+                    <a href="#">Esqueci minha senha</a>
                 </div>
 
                 <input type="submit" name="submit" id="submit" value="Entrar">
             </fieldset>
         </form>
     </div>
+
+    <!-- Script de login -->
+    <script src="../scripts/login.js"></script>
 </body>
-</html>s
+</html>

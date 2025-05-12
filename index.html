@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +25,8 @@
                     <img src="assets/img/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
                     Lojinha do Naruto
                 </div>
+
+                <div id="welcome-message" class="d-none d-md-block me-3 text-success fw-bold"></div>
                 
                 <nav class="d-none d-md-flex align-items-center">
                     <a class="nav-link active" href="index.html">Início</a>
@@ -33,7 +36,7 @@
                 
                 <div class="header-icons">
                     <a href="login/index.html"><i class="fas fa-user"></i></a>
-                    <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="carrinho/index.html"><i class="fas fa-shopping-cart"></i></a>
                     <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -50,7 +53,7 @@
             </div>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
@@ -87,7 +90,7 @@
                                 </div>
                                 <div class="product-price">R$ 219,90 <span class="product-old-price">R$ 299,90</span></div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="1" data-produto-nome="Jogo de Cards Naruto" data-produto-preco="219.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -114,7 +117,7 @@
                                 </div>
                                 <div class="product-price">R$ 79,90</div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="2" data-produto-nome="Copo Térmico Uzumaki" data-produto-preco="79.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -141,7 +144,7 @@
                                 </div>
                                 <div class="product-price">R$ 129,90 <span class="product-old-price">R$ 159,90</span></div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="3" data-produto-nome="Figure Action Naruto" data-produto-preco="129.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -176,7 +179,7 @@
                                 </div>
                                 <div class="product-price">R$ 129,90 <span class="product-old-price">R$ 1.429,90</span></div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="4" data-produto-nome="Funko Pop Minato" data-produto-preco="129.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -203,7 +206,7 @@
                                 </div>
                                 <div class="product-price">R$ 79,90 <span class="product-old-price">R$ 99,90</span></div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="5" data-produto-nome="Figure Action Sakura" data-produto-preco="79.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -230,7 +233,7 @@
                                 </div>
                                 <div class="product-price">R$ 179,90</div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="6" data-produto-nome="Cobertor Akatsuki" data-produto-preco="179.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -265,7 +268,7 @@
                                 </div>
                                 <div class="product-price">R$ 79,90</div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="7" data-produto-nome="Camiseta Naruto" data-produto-preco="79.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -292,7 +295,7 @@
                                 </div>
                                 <div class="product-price">R$ 299,90</div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="8" data-produto-nome="Vestido do Naruto para Cosplay" data-produto-preco="299.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -319,7 +322,7 @@
                                 </div>
                                 <div class="product-price">R$ 229,90</div>
                                 <div class="product-actions">
-                                    <button class="btn btn-buy">Comprar</button>
+                                    <button class="btn btn-buy" data-produto-id="9" data-produto-nome="Capa Akatsuki" data-produto-preco="229.90">Comprar</button>
                                     <button class="btn btn-details">Detalhes</button>
                                 </div>
                             </div>
@@ -329,7 +332,7 @@
             </div>
         </section>
     </main>
-    
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -396,5 +399,130 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Meus Scripts -->
+    <script>
+        // Função para carregar usuários no localStorage quando a página é carregada
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verifica se já existem usuários no localStorage
+            if (!localStorage.getItem('usuarios')) {
+                // Cria um array com 3 usuários de exemplo
+                const usuarios = [
+                    { nome: "Naruto Uzumaki", email: "naruto@konoha.com", senha: "123456" },
+                    { nome: "Sasuke Uchiha", email: "sasuke@konoha.com", senha: "123456" },
+                    { nome: "Sakura Haruno", email: "sakura@konoha.com", senha: "123456" }
+                ];
+                
+                // Salva os usuários no localStorage
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            }
+            
+            // Verifica se há um usuário logado na sessão
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            if (usuarioLogado) {
+                // Se estiver logado, mostra mensagem de boas-vindas
+                const usuario = JSON.parse(usuarioLogado);
+                document.getElementById('welcome-message').textContent = `Bem-vindo, ${usuario.nome}!`;
+                document.getElementById('welcome-message').classList.remove('d-none');
+            }
+            
+            // Configura os botões de compra
+            configurarBotoesComprar();
+            // Atualiza o contador do carrinho
+            atualizarContadorCarrinho();
+        });
+
+        // Função para adicionar produto ao carrinho
+        function adicionarAoCarrinho(produtoId, produtoNome, produtoPreco) {
+            // Verifica se o usuário está logado
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            if (!usuarioLogado) {
+                alert('Por favor, faça login para adicionar produtos ao carrinho.');
+                window.location.href = 'login/index.html';
+                return;
+            }
+            
+            const usuario = JSON.parse(usuarioLogado);
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            // Verifica se o produto já está no carrinho
+            const produtoExistente = carrinho.find(item => 
+                item.id === produtoId && 
+                item.usuario === usuario.nome
+            );
+            
+            if (produtoExistente) {
+                produtoExistente.quantidade = (produtoExistente.quantidade || 1) + 1;
+            } else {
+                carrinho.push({
+                    id: produtoId,
+                    nome: produtoNome,
+                    preco: parseFloat(produtoPreco),
+                    usuario: usuario.nome,
+                    data: new Date().toISOString(),
+                    quantidade: 1
+                });
+            }
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            
+            // Mostra mensagem de sucesso
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                ${produtoNome} foi adicionado ao carrinho!
+            `;
+            document.body.appendChild(toast);
+            
+            // Remove a mensagem após 3 segundos
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+            
+            // Atualiza o ícone do carrinho
+            atualizarContadorCarrinho();
+        }
+
+        // Função para atualizar o contador do carrinho
+        function atualizarContadorCarrinho() {
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            if (!usuarioLogado) return;
+            
+            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            const usuario = JSON.parse(usuarioLogado);
+            const itensUsuario = carrinho.filter(item => item.usuario === usuario.nome);
+            const totalItens = itensUsuario.reduce((total, item) => total + (item.quantidade || 1), 0);
+            
+            // Remove o contador existente, se houver
+            const contadorExistente = document.querySelector('.cart-counter');
+            if (contadorExistente) {
+                contadorExistente.remove();
+            }
+            
+            if (totalItens > 0) {
+                const contador = document.createElement('span');
+                contador.className = 'cart-counter';
+                contador.textContent = totalItens;
+                
+                const iconeCarrinho = document.querySelector('.fa-shopping-cart').parentNode;
+                iconeCarrinho.appendChild(contador);
+            }
+        }
+
+        // Configura os botões de compra
+        function configurarBotoesComprar() {
+            document.querySelectorAll('.btn-buy').forEach(botao => {
+                botao.addEventListener('click', function() {
+                    const produtoId = this.getAttribute('data-produto-id');
+                    const produtoNome = this.getAttribute('data-produto-nome');
+                    const produtoPreco = this.getAttribute('data-produto-preco');
+                    
+                    adicionarAoCarrinho(produtoId, produtoNome, produtoPreco);
+                });
+            });
+}
+    </script>
 </body>
 </html>
