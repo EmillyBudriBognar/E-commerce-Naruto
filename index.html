@@ -402,6 +402,32 @@
 
     <!-- Meus Scripts -->
     <script>
+        // Funções para manipulação de cookies
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {   
+            document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
         // Função para carregar usuários no localStorage quando a página é carregada
         document.addEventListener('DOMContentLoaded', function() {
             // Verifica se já existem usuários no localStorage
@@ -417,31 +443,131 @@
                 localStorage.setItem('usuarios', JSON.stringify(usuarios));
             }
             
-            // Verifica se há um usuário logado na sessão
-            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            // Verifica se há um usuário logado na sessão ou cookie
+            let usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            
+            // Se não estiver na sessão, verifica nos cookies
+            if (!usuarioLogado) {
+                const usuarioCookie = getCookie('usuarioLogado');
+                if (usuarioCookie) {
+                    // Se encontrou no cookie, coloca na sessão também
+                    sessionStorage.setItem('usuarioLogado', usuarioCookie);
+                    usuarioLogado = usuarioCookie;
+                }
+            }
+            
             if (usuarioLogado) {
                 // Se estiver logado, mostra mensagem de boas-vindas
                 const usuario = JSON.parse(usuarioLogado);
                 document.getElementById('welcome-message').textContent = `Bem-vindo, ${usuario.nome}!`;
                 document.getElementById('welcome-message').classList.remove('d-none');
+                
+                // Atualiza o cookie de usuário (renova por 7 dias)
+                setCookie('usuarioLogado', usuarioLogado, 7);
+                
+                // Carrega preferências do usuário
+                carregarPreferenciasUsuario(usuario.nome);
             }
             
             // Configura os botões de compra
             configurarBotoesComprar();
             // Atualiza o contador do carrinho
             atualizarContadorCarrinho();
+            
+            // Verifica se há carrinho no cookie
+            const carrinhoCookie = getCookie('carrinhoTemporario');
+            if (carrinhoCookie && !usuarioLogado) {
+                // Se não está logado mas tem carrinho no cookie, mostra aviso
+                mostrarAvisoCarrinhoTemporario();
+            }
         });
+
+        // Função para carregar preferências do usuário
+        function carregarPreferenciasUsuario(nomeUsuario) {
+            const preferencias = getCookie(`preferencias_${nomeUsuario}`);
+            if (preferencias) {
+                try {
+                    const pref = JSON.parse(preferencias);
+                    // Aqui você pode aplicar as preferências do usuário
+                    console.log('Preferências carregadas:', pref);
+                    // Exemplo: aplicar tema escuro se preferido
+                    if (pref.temaEscuro) {
+                        document.body.classList.add('dark-mode');
+                    }
+                } catch (e) {
+                    console.error('Erro ao ler preferências:', e);
+                }
+            }
+        }
+
+        // Função para mostrar aviso de carrinho temporário
+        function mostrarAvisoCarrinhoTemporario() {
+            const toast = document.createElement('div');
+            toast.className = 'toast-message info';
+            toast.innerHTML = `
+                <i class="fas fa-info-circle me-2"></i>
+                Você tem itens no carrinho de visitante. <a href="login/index.html">Faça login</a> para salvá-los.
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
 
         // Função para adicionar produto ao carrinho
         function adicionarAoCarrinho(produtoId, produtoNome, produtoPreco) {
             // Verifica se o usuário está logado
-            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado') || getCookie('usuarioLogado');
+            
             if (!usuarioLogado) {
-                alert('Por favor, faça login para adicionar produtos ao carrinho.');
-                window.location.href = 'login/index.html';
+                // Se não está logado, usa carrinho temporário em cookies
+                let carrinhoTemporario = [];
+                const carrinhoCookie = getCookie('carrinhoTemporario');
+                if (carrinhoCookie) {
+                    try {
+                        carrinhoTemporario = JSON.parse(carrinhoCookie);
+                    } catch (e) {
+                        console.error('Erro ao ler carrinho temporário:', e);
+                    }
+                }
+                
+                // Adiciona o produto ao carrinho temporário
+                const produtoExistente = carrinhoTemporario.find(item => item.id === produtoId);
+                if (produtoExistente) {
+                    produtoExistente.quantidade = (produtoExistente.quantidade || 1) + 1;
+                } else {
+                    carrinhoTemporario.push({
+                        id: produtoId,
+                        nome: produtoNome,
+                        preco: parseFloat(produtoPreco),
+                        data: new Date().toISOString(),
+                        quantidade: 1
+                    });
+                }
+                
+                // Salva no cookie por 7 dias
+                setCookie('carrinhoTemporario', JSON.stringify(carrinhoTemporario), 7);
+                
+                // Mostra mensagem de sucesso
+                const toast = document.createElement('div');
+                toast.className = 'toast-message info';
+                toast.innerHTML = `
+                    <i class="fas fa-info-circle me-2"></i>
+                    ${produtoNome} foi adicionado ao carrinho de visitante. <a href="login/index.html">Faça login</a> para salvá-lo.
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.add('fade-out');
+                    setTimeout(() => toast.remove(), 300);
+                }, 5000);
+                
                 return;
             }
             
+            // Se estiver logado, usa o localStorage
             const usuario = JSON.parse(usuarioLogado);
             let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
             
@@ -487,15 +613,30 @@
 
         // Função para atualizar o contador do carrinho
         function atualizarContadorCarrinho() {
-            const usuarioLogado = sessionStorage.getItem('usuarioLogado');
-            if (!usuarioLogado) return;
+            const usuarioLogado = sessionStorage.getItem('usuarioLogado') || getCookie('usuarioLogado');
             
-            const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-            const usuario = JSON.parse(usuarioLogado);
-            const itensUsuario = carrinho.filter(item => item.usuario === usuario.nome);
-            const totalItens = itensUsuario.reduce((total, item) => total + (item.quantidade || 1), 0);
+            let totalItens = 0;
             
-            // Remove o contador existente, se houver
+            if (usuarioLogado) {
+                // Carrinho logado (localStorage)
+                const usuario = JSON.parse(usuarioLogado);
+                const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+                const itensUsuario = carrinho.filter(item => item.usuario === usuario.nome);
+                totalItens = itensUsuario.reduce((total, item) => total + (item.quantidade || 1), 0);
+            } else {
+                // Carrinho visitante (cookie)
+                const carrinhoCookie = getCookie('carrinhoTemporario');
+                if (carrinhoCookie) {
+                    try {
+                        const carrinhoTemporario = JSON.parse(carrinhoCookie);
+                        totalItens = carrinhoTemporario.reduce((total, item) => total + (item.quantidade || 1), 0);
+                    } catch (e) {
+                        console.error('Erro ao ler carrinho temporário:', e);
+                    }
+                }
+            }
+            
+            // Remove o contador existente
             const contadorExistente = document.querySelector('.cart-counter');
             if (contadorExistente) {
                 contadorExistente.remove();
@@ -522,7 +663,7 @@
                     adicionarAoCarrinho(produtoId, produtoNome, produtoPreco);
                 });
             });
-}
+        }
     </script>
 </body>
 </html>
